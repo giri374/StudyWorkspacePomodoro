@@ -6,9 +6,9 @@
 
 1. Clone repo:
    ```bash
-   git clone https://github.com/yourusername/PomodoroWeb.git
-   cd PomodoroWeb
+   git clone https://github.com/giri374/StudyWorkspacePomodoro.git
 2. Tạo CSDL
+Mở giao diện SQL của bạn, chạy SQLServerDB.sql để tạo database
 
 ## Cấu hình cơ sở dữ liệu (hạn chế tình trạng xung đột CSDL)
 1. Copy file `appsettings.example.json` thành `appsettings.json`
