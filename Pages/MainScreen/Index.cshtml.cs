@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Data.SqlClient ;
+using System.Data.SqlClient;
 
 public class MainScreenModel : PageModel
 {
@@ -15,7 +15,7 @@ public class MainScreenModel : PageModel
     [BindProperty] public int SelectedWorkspaceId { get; set; }
     [BindProperty] public int SelectedMusicId { get; set; }
     public string SelectedWorkspaceName { get; set; } = "Default Workspace";
-    public string SelectedWorkspaceImage { get; set; } = "/images/default.jpg";
+    public string SelectedWorkspaceImage { get; set; } = "/uploads/images/default.jpg";
 
     public List<SelectListItem> WorkspaceList { get; set; } = new();
     public List<SelectListItem> MusicList { get; set; } = new();
@@ -24,24 +24,26 @@ public class MainScreenModel : PageModel
     public int TimerInSeconds { get; set; }// default
     public int PomodoroDurationMin { get; set; } = 25;
     public int ShortBreakDurationMin { get; set; } = 5;
+    public bool TimerRunning { get; set; } = false;
     public string Mode { get; set; } = "Pomodoro";
 
-private void LoadPomodoroSettings()
-{
-    string connStr = _configuration.GetConnectionString("DefaultConnection");
-
-    using var conn = new SqlConnection(connStr);
-    conn.Open();
-
-    var cmd = new SqlCommand("SELECT TOP 1 PomodoroDuration, ShortBreakDuration FROM PomodoroSettings", conn);
-
-    using var reader = cmd.ExecuteReader();
-    if (reader.Read())
+    private void LoadPomodoroSettings()
     {
-        PomodoroDurationMin = Convert.ToInt32(reader["PomodoroDuration"]);
-        ShortBreakDurationMin = Convert.ToInt32(reader["ShortBreakDuration"]);
+        string connStr = _configuration.GetConnectionString("DefaultConnection");
+
+        using var conn = new SqlConnection(connStr);
+        conn.Open();
+
+        var cmd = new SqlCommand("SELECT TOP 1 PomodoroDuration, ShortBreakDuration FROM PomodoroSettings", conn);
+
+        using var reader = cmd.ExecuteReader();
+        if (reader.Read())
+        {
+            PomodoroDurationMin = Convert.ToInt32(reader["PomodoroDuration"]);
+            ShortBreakDurationMin = Convert.ToInt32(reader["ShortBreakDuration"]);
+        }
     }
-}
+
     public void OnGet()
     {
         LoadOptions();
@@ -49,27 +51,29 @@ private void LoadPomodoroSettings()
 
         TimerInSeconds = PomodoroDurationMin * 60;
         TimerDisplay = $"{PomodoroDurationMin:D2}:00";
+        TimerRunning = false; // Not running on GET
     }
-
 
     public void OnPost(string action)
     {
         LoadOptions();
         LoadPomodoroSettings();
 
-    switch (action)
-    {
-        case "StartPomodoro":
-            TimerInSeconds = PomodoroDurationMin * 60;
-            TimerDisplay = $"{PomodoroDurationMin:D2}:00";
-            Mode = "Pomodoro";
-            break;
-        case "ShortBreak":
-            TimerInSeconds = ShortBreakDurationMin * 60;
-            TimerDisplay = $"{ShortBreakDurationMin:D2}:00";
-            Mode = "Short Break";
-            break;
-    }
+        switch (action)
+        {
+            case "StartPomodoro":
+                TimerInSeconds = PomodoroDurationMin * 60;
+                TimerDisplay = $"{PomodoroDurationMin:D2}:00";
+                Mode = "Pomodoro";
+                TimerRunning = true;
+                break;
+            case "ShortBreak":
+                TimerInSeconds = ShortBreakDurationMin * 60;
+                TimerDisplay = $"{ShortBreakDurationMin:D2}:00";
+                Mode = "Short Break";
+                TimerRunning = true;
+                break;
+        }
 
         LoadSelectedWorkspace();
     }
@@ -127,4 +131,5 @@ private void LoadPomodoroSettings()
             SelectedWorkspaceImage = reader["BackgroundImage"].ToString();
         }
     }
+
 }
