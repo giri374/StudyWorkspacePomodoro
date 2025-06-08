@@ -15,7 +15,7 @@ public class MainScreenModel : PageModel
     [BindProperty] public int SelectedWorkspaceId { get; set; }
     [BindProperty] public int SelectedMusicId { get; set; }
     public string SelectedWorkspaceName { get; set; } = "Default Workspace";
-    public string SelectedWorkspaceImage { get; set; } = "/uploads/images/default.jpg";
+    public string SelectedWorkspaceImage { get; set; } = "/img/defaultMainScreen.jpg";
 
     public List<SelectListItem> WorkspaceList { get; set; } = new();
     public List<SelectListItem> MusicList { get; set; } = new();

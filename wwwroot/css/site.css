@@ -1,31 +1,192 @@
-html {
-  font-size: 14px;
+.HOME {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
+    .HOME .overlap-wrapper {
+        background-color: #ffffff;
+        height: 1080px;
+        overflow: hidden;
+        width: 1920px;
+    }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
+    .HOME .overlap {
+        height: 1134px;
+        left: -10px;
+        position: relative;
+        width: 1940px;
+    }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
+    .HOME .ti-xung {
+        height: 944px;
+        left: 10px;
+        object-fit: cover;
+        position: absolute;
+        top: 100px;
+        width: 1920px;
+    }
 
-body {
-  margin-bottom: 60px;
-}
+    .HOME .group {
+        height: 126px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 1940px;
+    }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
-}
+    .HOME .overlap-group {
+        background-image: url(./image.png);
+        background-size: 100% 100%;
+        height: 126px;
+        left: 10px;
+        position: relative;
+        width: 1920px;
+    }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
-}
+    .HOME .rectangle {
+        height: 109px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 1920px;
+    }
+
+    .HOME .POMODORO {
+        height: 92px;
+        left: 10px;
+        position: absolute;
+        top: 9px;
+        width: 374px;
+    }
+
+    .HOME .overlap-group-wrapper {
+        height: 126px;
+        left: 0;
+        position: absolute;
+        top: 1008px;
+        transform: rotate(180deg);
+        width: 1940px;
+    }
+
+    .HOME .div {
+        height: 109px;
+        left: 10px;
+        position: relative;
+        top: 17px;
+        width: 1920px;
+    }
+
+    .HOME .img {
+        height: 72px;
+        left: 0;
+        position: absolute;
+        top: 37px;
+        transform: rotate(-180deg);
+        width: 1920px;
+    }
+
+    .HOME .group-2 {
+        background-color: #f7efda;
+        height: 109px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 1920px;
+    }
+
+    .HOME .text-wrapper {
+        color: #000000;
+        font-family: "Segoe UI-Bold", Helvetica;
+        font-size: 40px;
+        font-weight: 700;
+        height: 60px;
+        left: 1050px;
+        letter-spacing: -0.88px;
+        line-height: 60px;
+        position: absolute;
+        text-align: center;
+        top: 24px;
+        white-space: nowrap;
+    }
+
+    .HOME .text-wrapper-2 {
+        color: #000000;
+        font-family: "Segoe UI-Bold", Helvetica;
+        font-size: 40px;
+        font-weight: 700;
+        height: 60px;
+        left: 1244px;
+        letter-spacing: -0.88px;
+        line-height: 60px;
+        position: absolute;
+        text-align: center;
+        top: 24px;
+        white-space: nowrap;
+    }
+
+    .HOME .group-3 {
+        height: 648px;
+        left: 387px;
+        position: absolute;
+        top: 419px;
+        width: 1172px;
+    }
+
+    .HOME .text-wrapper-3 {
+        -webkit-text-stroke: 2px #badd7f;
+        color: #306131;
+        font-family: "Bagel Fat One-Regular", Helvetica;
+        font-size: 96px;
+        font-weight: 400;
+        height: 144px;
+        left: -2px;
+        letter-spacing: -2.11px;
+        line-height: 144px;
+        position: absolute;
+        text-align: center;
+        top: -2px;
+        white-space: nowrap;
+    }
+
+    .HOME .p {
+        color: #000000;
+        font-family: "Segoe UI-SemiboldItalic", Helvetica;
+        font-size: 40px;
+        font-style: italic;
+        font-weight: 400;
+        height: 60px;
+        left: 254px;
+        letter-spacing: -0.88px;
+        line-height: 60px;
+        position: absolute;
+        text-align: center;
+        top: 182px;
+        white-space: nowrap;
+    }
+
+    .HOME .text-wrapper-4 {
+        color: #306131;
+        font-family: "Segoe UI-LightItalic", Helvetica;
+        font-size: 30px;
+        font-style: italic;
+        font-weight: 300;
+        height: 45px;
+        left: 294px;
+        letter-spacing: -0.66px;
+        line-height: 45px;
+        position: absolute;
+        text-align: center;
+        top: 603px;
+        white-space: nowrap;
+    }
+
+    .HOME .WORKSPACE {
+        height: 29px;
+        left: 1583px;
+        position: absolute;
+        top: 44px;
+        width: 232px;
+    }
