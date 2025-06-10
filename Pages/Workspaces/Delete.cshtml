@@ -1,0 +1,27 @@
+﻿@page
+@model StudyWorkspace.Pages.Workspaces.DeleteModel
+@{
+    ViewData["Title"] = "Xóa không gian làm việc";
+}
+
+<h1>Xóa không gian làm việc</h1>
+
+@if (!ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+
+<h3>Bạn có chắc chắn muốn xóa không gian "@Model.Workspace?.Name"?</h3>
+
+<form method="post">
+    <input type="hidden" asp-for="Workspace.WorkspaceID" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a asp-page="Index" class="btn btn-secondary">Hủy</a>
+</form>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
