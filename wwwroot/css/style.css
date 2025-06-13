@@ -1,0 +1,721 @@
+.FOCUS {
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.FOCUS .WORK-SPACE-wrapper {
+  width: 1920px;
+  height: 1080px;
+}
+
+.FOCUS .WORK-SPACE {
+  height: 1080px;
+  background-color: #ffffff;
+}
+
+.FOCUS .overlap {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+}
+
+.FOCUS .NH-NN {
+  position: absolute;
+  width: 1920px;
+  height: 944px;
+  top: 101px;
+  left: 0;
+  object-fit: cover;
+}
+
+.FOCUS .TRANG-TR-TRN {
+  height: 126px;
+  top: 0;
+  position: absolute;
+  width: 1920px;
+  left: 0;
+}
+
+.FOCUS .POMODORO {
+  position: absolute;
+  width: 374px;
+  height: 92px;
+  top: 9px;
+  left: 0;
+}
+
+.FOCUS .TRANG-TR-DI {
+  height: 72px;
+  top: 1008px;
+  position: absolute;
+  width: 1920px;
+  left: 0;
+}
+
+.FOCUS .text-wrapper {
+  height: 60px;
+  top: 24px;
+  left: 1040px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  font-size: 40px;
+  letter-spacing: -0.88px;
+  line-height: 60px;
+  position: absolute;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.FOCUS .div {
+  position: absolute;
+  height: 60px;
+  top: 24px;
+  left: 1234px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  font-size: 40px;
+  text-align: center;
+  letter-spacing: -0.88px;
+  line-height: 60px;
+  white-space: nowrap;
+}
+
+.FOCUS .text-wrapper-2 {
+  position: absolute;
+  height: 60px;
+  top: 24px;
+  left: 1573px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  font-size: 40px;
+  text-align: center;
+  letter-spacing: -0.88px;
+  line-height: 60px;
+  white-space: nowrap;
+}
+
+.FOCUS .group-wrapper {
+  position: absolute;
+  width: 706px;
+  height: 400px;
+  top: 514px;
+  left: 607px;
+}
+
+.FOCUS .group {
+  position: relative;
+  height: 400px;
+  background-color: #ffffff66;
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px #00000040;
+}
+
+.FOCUS .overlap-group {
+  position: absolute;
+  width: 583px;
+  height: 203px;
+  top: 70px;
+  left: 61px;
+}
+
+.FOCUS .p {
+  position: absolute;
+  height: 180px;
+  top: 0;
+  left: 0;
+  -webkit-text-stroke: 1px #306131;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #306131;
+  font-size: 120px;
+  text-align: center;
+  letter-spacing: -2.64px;
+  line-height: 180px;
+  white-space: nowrap;
+}
+
+.FOCUS .text-wrapper-3 {
+  position: absolute;
+  height: 45px;
+  top: 158px;
+  left: 43px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #306131b2;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: -0.66px;
+  line-height: 45px;
+  white-space: nowrap;
+}
+
+.FOCUS .text-wrapper-4 {
+  position: absolute;
+  height: 45px;
+  top: 158px;
+  left: 262px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #306131b2;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: -0.66px;
+  line-height: 45px;
+  white-space: nowrap;
+}
+
+.FOCUS .text-wrapper-5 {
+  position: absolute;
+  height: 45px;
+  top: 158px;
+  left: 495px;
+font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #306131b2;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: -0.66px;
+  line-height: 45px;
+  white-space: nowrap;
+}
+
+.FOCUS .component {
+  position: absolute;
+  width: 615px;
+  height: 45px;
+  top: 14px;
+  left: 47px;
+}
+
+.FOCUS .overlap-group-wrapper {
+  position: absolute;
+  width: 141px;
+  height: 45px;
+  top: 0;
+  left: 246px;
+}
+
+.FOCUS .div-wrapper {
+  position: relative;
+  width: 139px;
+  height: 45px;
+  background-color: #306131;
+  border-radius: 22.5px;
+}
+
+.FOCUS .text-wrapper-6 {
+  position: absolute;
+  height: 45px;
+  top: 0;
+  left: 23px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: -0.66px;
+  line-height: 45px;
+  white-space: nowrap;
+}
+
+.FOCUS .text-wrapper-7 {
+  left: 0;
+  color: #306131b2;
+  position: absolute;
+  height: 45px;
+  top: -1px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: -0.66px;
+  line-height: 45px;
+  white-space: nowrap;
+}
+
+.FOCUS .text-wrapper-8 {
+  left: 434px;
+  color: #306131ad;
+  position: absolute;
+  height: 45px;
+  top: -1px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: -0.66px;
+  line-height: 45px;
+  white-space: nowrap;
+}
+
+.FOCUS .NHP-STAR {
+  position: absolute;
+  width: 420px;
+  height: 101px;
+  top: 290px;
+  left: 149px;
+}
+
+.FOCUS .group-2 {
+  height: 101px;
+}
+
+.FOCUS .overlap-group-2 {
+  position: relative;
+  width: 420px;
+  height: 101px;
+  top: -1px;
+}
+
+.FOCUS .NN-START {
+  position: absolute;
+  width: 420px;
+  height: 80px;
+  top: 12px;
+  left: 0;
+  background-color: #f7efda85;
+  border-radius: 43.5px;
+  border: 2px solid;
+  border-color: #306131;
+}
+
+.FOCUS .text-wrapper-9 {
+  width: 217px;
+  height: 101px;
+  top: 0;
+  left: 104px;
+  font-family: "Segoe UI-Black", Helvetica;
+  font-weight: 900;
+  color: #306131;
+  font-size: 60px;
+  letter-spacing: -1.32px;
+  line-height: 90px;
+  position: absolute;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.FOCUS .next-nn {
+  position: absolute;
+  width: 278px;
+  height: 158px;
+  top: 390px;
+  left: 1625px;
+  background-color: #f9f9f966;
+  border-radius: 20px;
+}
+
+.FOCUS .overlap-2 {
+  position: absolute;
+  width: 240px;
+  height: 139px;
+  top: 16px;
+  left: 19px;
+}
+
+.FOCUS .img {
+  position: absolute;
+  width: 240px;
+  height: 116px;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+
+.FOCUS .text-wrapper-10 {
+  position: absolute;
+  top: 115px;
+  left: 98px;
+  font-family: "Segoe UI-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.FOCUS .vector {
+  top: 64px;
+  left: 1px;
+  position: absolute;
+  width: 13px;
+  height: 21px;
+}
+
+.FOCUS .vector-2 {
+  top: 64px;
+  left: 264px;
+  position: absolute;
+  width: 13px;
+  height: 21px;
+}
+
+.FOCUS .nhp-nhy-group {.FOCUS {
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.FOCUS .WORK-SPACE-wrapper {
+  width: 1920px;
+  height: 1080px;
+}
+
+.FOCUS .WORK-SPACE {
+  height: 1080px;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.FOCUS .overlap {
+  position: relative;
+  width: 1940px;
+  height: 1134px;
+  left: -10px;
+}
+
+.FOCUS .NH-NN {
+  position: absolute;
+  width: 1920px;
+  height: 944px;
+  top: 101px;
+  left: 10px;
+  object-fit: cover;
+}
+
+.FOCUS .group {
+  position: absolute;
+  width: 1940px;
+  height: 126px;
+  top: 0;
+  left: 0;
+}
+
+.FOCUS .overlap-group {
+  position: relative;
+  width: 1920px;
+  height: 126px;
+  left: 10px;
+  background-image: url(./img/group-3-2.png);
+  background-size: 100% 100%;
+}
+
+.FOCUS .rectangle {
+  position: absolute;
+  width: 1920px;
+  height: 109px;
+  top: 0;
+  left: 0;
+}
+
+.FOCUS .POMODORO {
+  position: absolute;
+  width: 374px;
+  height: 92px;
+  top: 9px;
+  left: 10px;
+}
+
+.FOCUS .overlap-wrapper {
+  position: absolute;
+  width: 1940px;
+  height: 126px;
+  top: 1008px;
+  left: 0;
+  transform: rotate(180deg);
+}
+
+.FOCUS .div {
+  position: relative;
+  width: 1920px;
+  height: 109px;
+  top: 17px;
+  left: 10px;
+}
+
+.FOCUS .img {
+  position: absolute;
+  width: 1920px;
+  height: 72px;
+  top: 37px;
+  left: 0;
+  transform: rotate(-180deg);
+}
+
+.FOCUS .group-2 {
+  position: absolute;
+  width: 1920px;
+  height: 109px;
+  top: 0;
+  left: 0;
+  background-color: #f7efda;
+}
+
+.FOCUS .text-wrapper {
+  height: 60px;
+  top: 24px;
+  left: 1050px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  font-size: 40px;
+  letter-spacing: -0.88px;
+  line-height: 60px;
+  position: absolute;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.FOCUS .text-wrapper-2 {
+  position: absolute;
+  height: 60px;
+  top: 24px;
+  left: 1244px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  font-size: 40px;
+  text-align: center;
+  letter-spacing: -0.88px;
+  line-height: 60px;
+  white-space: nowrap;
+}
+
+.FOCUS .text-wrapper-3 {
+  position: absolute;
+  height: 60px;
+  top: 24px;
+  left: 1583px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  font-size: 40px;
+  text-align: center;
+  letter-spacing: -0.88px;
+  line-height: 60px;
+  white-space: nowrap;
+}
+
+.FOCUS .group-wrapper {
+  position: absolute;
+  width: 706px;
+  height: 400px;
+  top: 514px;
+  left: 617px;
+}
+
+.FOCUS .group-3 {
+  position: relative;
+  height: 400px;
+  background-color: #ffffff66;
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px #00000040;
+}
+
+.FOCUS .overlap-2 {
+  position: absolute;
+  width: 583px;
+  height: 203px;
+  top: 70px;
+  left: 61px;
+}
+
+.FOCUS .p {
+  position: absolute;
+  height: 180px;
+  top: 0;
+  left: 0;
+  -webkit-text-stroke: 1px #306131;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #306131;
+  font-size: 120px;
+  text-align: center;
+  letter-spacing: -2.64px;
+  line-height: 180px;
+  white-space: nowrap;
+}
+.FOCUS .text-wrapper-4 {
+  position: absolute;
+  height: 45px;
+  top: 158px;
+  left: 43px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #306131b2;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: -0.66px;
+  line-height: 45px;
+  white-space: nowrap;
+}
+
+.FOCUS .text-wrapper-5 {
+  position: absolute;
+  height: 45px;
+  top: 158px;
+  left: 262px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #306131b2;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: -0.66px;
+  line-height: 45px;
+  white-space: nowrap;
+}
+
+.FOCUS .text-wrapper-6 {
+  position: absolute;
+  height: 45px;
+  top: 158px;
+  left: 495px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #306131b2;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: -0.66px;
+  line-height: 45px;
+  white-space: nowrap;
+}
+
+.FOCUS .component {
+  position: absolute;
+  width: 615px;
+  height: 45px;
+  top: 14px;
+  left: 47px;
+}
+
+.FOCUS .overlap-group-wrapper {
+  position: absolute;
+  width: 141px;
+  height: 45px;
+  top: 0;
+  left: 246px;
+}
+
+.FOCUS .div-wrapper {
+  position: relative;
+  width: 139px;
+  height: 45px;
+  background-color: #306131;
+  border-radius: 22.5px;
+}
+
+.FOCUS .text-wrapper-7 {
+  position: absolute;
+  height: 45px;
+  top: 0;
+  left: 23px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: -0.66px;
+  line-height: 45px;
+  white-space: nowrap;
+}
+
+.FOCUS .text-wrapper-8 {
+  left: 0;
+  color: #306131b2;
+  position: absolute;
+  height: 45px;
+  top: -1px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: -0.66px;
+  line-height: 45px;
+  white-space: nowrap;
+}
+
+.FOCUS .text-wrapper-9 {
+  left: 434px;
+  color: #306131ad;
+  position: absolute;
+  height: 45px;
+  top: -1px;
+  font-family: "Segoe UI-Bold", Helvetica;
+  font-weight: 700;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: -0.66px;
+  line-height: 45px;
+  white-space: nowrap;
+}
+
+.FOCUS .NHP-STAR {
+  position: absolute;
+  width: 420px;
+  height: 101px;
+  top: 290px;
+  left: 149px;
+}
+
+.FOCUS .group-4 {
+  height: 101px;
+}
+
+.FOCUS .overlap-group-2 {
+  position: relative;
+  width: 420px;
+  height: 101px;
+  top: -1px;
+}
+
+.FOCUS .NN-START {
+  position: absolute;
+  width: 420px;
+  height: 80px;
+  top: 12px;
+  left: 0;
+  background-color: #f7efda85;
+  border-radius: 43.5px;
+  border: 2px solid;
+  border-color: #306131;
+}
+
+.FOCUS .text-wrapper-10 {
+  width: 217px;
+  height: 101px;
+  top: 0;
+  left: 104px;
+  font-family: "Segoe UI-Black", Helvetica;
+  font-weight: 900;
+  color: #306131;
+  font-size: 60px;
+  letter-spacing: -1.32px;
+  line-height: 90px;
+  position: absolute;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.FOCUS .next-nn {
+  position: absolute;
+  width: 278px;
+  height: 158px;
+  top: 390px;
+  left: 1635px;
+  background-color: #f9f9f966;
+  border-radius: 20px;
+}
+  position: absolute;
+  width: 420px;
+  height: 101px;
+  top: 290px;
+  left: 149px;
+}
