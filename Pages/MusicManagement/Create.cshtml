@@ -1,0 +1,18 @@
+﻿@page
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model StudyPage.Pages.Music.CreateModel
+
+<h2>Add new background sound</h2>
+
+<form method="post" enctype="multipart/form-data">
+    <span>Chọn File:</span>
+    <input type="file" name="postedFiles" multiple />
+    <input type="submit" value="Tải lên" asp-page-handler="Upload" />
+    <br />
+    <span style="color:green">@Html.Raw(Model.Message)</span>
+</form>
+<button>
+	<a asp-page="/Music/Index">Return</a>
+</button>
+

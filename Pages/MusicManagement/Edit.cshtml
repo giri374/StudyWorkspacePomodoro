@@ -1,0 +1,48 @@
+﻿@page
+@model StudyPage.Pages.Music.EditModel
+@{
+}
+<br />
+<h2>Edit Music Information</h2>
+@* Hiển thị thông báo lỗi nếu có *@
+@if (!string.IsNullOrEmpty(Model.errorMessage))
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.errorMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<form method="post" enctype="multipart/form-data">
+    <input type="hidden" name="MusicID" value="@Model.musicTrack.MusicID" />
+    <input type="hidden" name="OldMusicFile" value="@Model.musicTrack.MusicFile" />
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Tên bài hát</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="Name" value="@Model.musicTrack.Name" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">New File </label>
+        <div class="col-sm-6">
+            <input type="file" class="form-control" name="MusicFile" />
+            @if (!string.IsNullOrEmpty(Model.musicTrack.MusicFile))
+            {
+                <div class="mt-2">
+                    <span>Current File:  </span>
+                    <audio controls style="max-width: 100%;">
+                        <source src="~/@Model.musicTrack.MusicFile" type="audio/mpeg" />
+                        file .mp3 pls
+                    </audio>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-3 d-grid">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+        <div class="col-sm-3 d-grid">
+            <a class="btn btn-outline-primary" href="/Music/Index" role="button">Cancel</a>
+        </div>
+    </div>
+</form>

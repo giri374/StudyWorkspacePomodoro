@@ -1,0 +1,48 @@
+﻿@page
+@model StudyPage.Pages.Music.IndexModel
+@{
+}
+@*
+
+
+*@
+<div class="action-buttons">
+    <a asp-page="Create" class="btn btn-primary">Thêm nhạc mới</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>Tên bài hát</th>
+            <th>   </th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var track in Model.MusicTrack)
+        {
+            <tr>
+                
+                <td>@track.Name</td>
+                
+                <td>
+                    <div class="col-sm-6">   
+                        
+                            <div class="mt-2">
+                                <audio controls style="max-width: 100%;">
+                                    <source src="~/@track.MusicFile" type="audio/mpeg" />
+                                    file .mp3 pls
+                                </audio>
+                            </div>
+                        
+                    </div>
+                </td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@track.MusicID" class="btn btn-info">Sửa</a>
+                    <a asp-page="Delete" asp-route-id="@track.MusicID" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

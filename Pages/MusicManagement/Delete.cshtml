@@ -1,0 +1,69 @@
+﻿@page
+@using Microsoft.Data.SqlClient;
+@{
+    try
+    {
+        string id = Request.Query["id"];
+        string connectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=music;Integrated Security=True;Pooling=False;TrustServerCertificate=True";
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+
+			string link = "SELECT MusicFile FROM music WHERE MusicID=@id";
+			using (SqlCommand command = new SqlCommand(link, connection))
+			{
+				command.Parameters.AddWithValue("@id", id);
+				string musicFile = command.ExecuteScalar() as string;
+				if (!string.IsNullOrEmpty(musicFile))
+				{
+					
+					
+					System.IO.File.Delete(musicFile);
+					
+				}
+			}
+
+			string sql = "DELETE FROM music WHERE MusicID=@id";
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+            
+        }
+
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.ToString());
+        throw;
+    }
+    Response.Redirect("/Music/Index"); 
+}
+
+
+@*@page
+@using Microsoft.Data.SqlClient;
+@{
+    try
+    {
+        string id = Request.Query["id"];
+        string connectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=music;Integrated Security=True;Pooling=False;TrustServerCertificate=True";
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+            string sql = "DELETE FROM music WHERE MusicID=@id";
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.ToString());
+        throw;
+    }
+    Response.Redirect("/Music/Index"); 
+}*@

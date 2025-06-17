@@ -1,0 +1,158 @@
+﻿@page
+@model StudyPage.Pages.background.IndexModel
+@{
+}
+@{
+	ViewData["Title"] = "Background";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - 4 Images per Row</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .image-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px 20px -10px;
+        }
+
+        .image-col {
+            flex: 0 0 25%;
+            max-width: 25%;
+            padding: 0 10px;
+            margin-bottom: 20px;
+        }
+
+        .image-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+            .image-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            }
+
+            .image-card img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                display: block;
+            }
+
+        .image-info {
+            padding: 15px;
+        }
+
+        .image-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .image-desc {
+            color: #666;
+            font-size: 14px;
+        }
+
+        
+        
+    </style>
+</head>
+<body>
+    <div class="gallery-container">
+        <h1>Image Gallery</h1>
+
+        <div class="image-row">
+            <!-- Hàng 1 -->
+            <div class="image-col">
+                <div class="image-card">
+                    <img src="https://picsum.photos/600/400?random=1" alt="Image 1">
+                    <div class="image-info">
+                        <div class="image-title">Ảnh 1</div>
+                        <div class="image-desc">Mô tả ngắn cho ảnh 1</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-col">
+                <div class="image-card">
+                    <img src="https://picsum.photos/600/400?random=2" alt="Image 2">
+                    <div class="image-info">
+                        <div class="image-title">Ảnh 2</div>
+                        <div class="image-desc">Mô tả ngắn cho ảnh 2</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-col">
+                <div class="image-card">
+                    <img src="https://picsum.photos/600/400?random=3" alt="Image 3">
+                    <div class="image-info">
+                        <div class="image-title">Ảnh 3</div>
+                        <div class="image-desc">Mô tả ngắn cho ảnh 3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-col">
+                <div class="image-card">
+                    <img src="https://picsum.photos/600/400?random=4" alt="Image 4">
+                    <div class="image-info">
+                        <div class="image-title">Ảnh 4</div>
+                        <div class="image-desc">Mô tả ngắn cho ảnh 4</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hàng 2 (tự động xuống dòng) -->
+            <div class="image-col">
+                <div class="image-card">
+                    <img src="https://picsum.photos/600/400?random=5" alt="Image 5">
+                    <div class="image-info">
+                        <div class="image-title">Ảnh 5</div>
+                        <div class="image-desc">Mô tả ngắn cho ảnh 5</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-col">
+                <div class="image-card">
+                    <img src="https://picsum.photos/600/400?random=6" alt="Image 6">
+                    <div class="image-info">
+                        <div class="image-title">Ảnh 6</div>
+                        <div class="image-desc">Mô tả ngắn cho ảnh 6</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+﻿@page
+@model StudyPage.Pages.Music.DelModel
+@{
+    // You may want to pass the id as a query or route parameter for the deletion
+    var id = Request.Query["id"];
+}
+
+<div class="container mt-5">
+    <h3>Do you really want to delete this?</h3>
+    <form method="post" asp-page-handler="Delete">
+        <input type="hidden" name="id" value="@id" />
+        <div class="mt-4">
+            <a class="btn btn-secondary" href="/Music/Index">Cancel</a>
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+    </form>
+</div>
