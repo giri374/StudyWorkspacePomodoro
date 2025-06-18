@@ -1,39 +1,48 @@
 using System.Data.SqlClient;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Data.SqlClient;
+// using Microsoft.Data.SqlClient;
 
-namespace StudyPage.Pages.Music
+namespace StudyPage.Pages.MusicManagement
 {
     public class IndexModel : PageModel
     {
+        private readonly IConfiguration _configuration;
+        public IndexModel(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         public List<MusicTrack> MusicTrack = new List<MusicTrack>();
         public void OnGet()
         {
             try
             {
-                string connectionString = "Data Source= localhost\\sqlexpress; Initial Catalog=music;" + "Integrated Security=True; Pooling=False;TrustServerCertificate=True";
-                using (Microsoft.Data.SqlClient.SqlConnection connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString)) 
+                string connectionString = _configuration.GetConnectionString("DefaultConnection");
+                if (string.IsNullOrEmpty(connectionString))
                 {
-                    connection.Open();
-                    string query = "SELECT * from music";
-                    using (Microsoft.Data.SqlClient.SqlCommand command = new Microsoft.Data.SqlClient.SqlCommand(query, connection)) 
+                    throw new ArgumentException("Connection string 'DefaultConnection' not found");
+                }
+                using var connection = new SqlConnection(connectionString);
+
+                connection.Open();
+                string query = "SELECT * from music";
+                using (System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand(query, connection))
+                {
+                    using (System.Data.SqlClient.SqlDataReader reader = command.ExecuteReader())
                     {
-                        using (Microsoft.Data.SqlClient.SqlDataReader reader = command.ExecuteReader()) 
+                        MusicTrack = new List<MusicTrack>();
+                        while (reader.Read())
                         {
-                            MusicTrack = new List<MusicTrack>();
-                            while (reader.Read())
+                            MusicTrack.Add(new MusicTrack
                             {
-                                MusicTrack.Add(new MusicTrack
-                                {
-                                    MusicID = reader.GetInt32(0),
-                                    Name = reader.GetString(1),
-                                    MusicFile = reader.GetString(2)
-                                });
-                            }
+                                MusicID = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+                                Name = reader.IsDBNull(1) ? string.Empty : reader.GetString(1),
+                                MusicFile = reader.IsDBNull(2) ? string.Empty : reader.GetString(2)
+                            });
                         }
                     }
                 }
+
             }
             catch (Exception ex)
             {

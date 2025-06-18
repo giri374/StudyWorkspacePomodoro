@@ -14,7 +14,7 @@ GO
 
 CREATE TABLE Music (
     MusicID INT IDENTITY(1,1) PRIMARY KEY,
-    SongName NVARCHAR(100) NOT NULL,
+    SongName NVARCHAR(100),
     Genre NVARCHAR(50),
     MusicFile NVARCHAR(255),
 );

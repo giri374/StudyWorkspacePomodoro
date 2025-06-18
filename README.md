@@ -14,6 +14,7 @@
 1. Copy file `appsettings.example.json` thành `appsettings.json`
 2. Chỉnh sửa `ConnectionStrings` phù hợp với máy của bạn. Cần sửa User ID, Password
 3. KHÔNG commit `appsettings.json` vào Git (đã được ignore) 
+VD Connectionstring của Đinh Linh: "Data Source=localhost\\sqlexpress;Initial Catalog=music;Integrated Security=True;Pooling=False;TrustServerCertificate=True"
 
 ## Miêu tả web:
 4 màn hình:pomodoro, quản lý workspace, quản lý nhạc, cài đặt pomodoro

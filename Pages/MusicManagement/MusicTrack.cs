@@ -1,4 +1,4 @@
-﻿namespace StudyPage.Pages.Music
+﻿namespace StudyPage.Pages.MusicManagement
 {
     public class MusicTrack
     {

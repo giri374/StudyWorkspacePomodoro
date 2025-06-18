@@ -5,10 +5,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
 
-namespace StudyPage.Pages.Music
+namespace StudyPage.Pages.MusicManagement
 {
     public class EditModel : PageModel
     {
+            private readonly IConfiguration _configuration;
+            
+                public EditModel(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         public MusicTrack musicTrack = new MusicTrack();
         public string errorMessage = "";
 
@@ -17,7 +23,7 @@ namespace StudyPage.Pages.Music
             string id = Request.Query["id"];
             try
             {
-                string connectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=music;Integrated Security=True;Pooling=False;TrustServerCertificate=True";
+                string connectionString = _configuration.GetConnectionString("DefaultConnection");;
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -47,7 +53,7 @@ namespace StudyPage.Pages.Music
         public void OnPost()
         {
             musicTrack.MusicID = int.Parse(Request.Form["MusicID"]);
-            musicTrack.Name = Request.Form["Name"];
+            musicTrack.Name = Request.Form["SongName"];
             string oldMusicFile = Request.Form["OldMusicFile"];
             IFormFile uploadedFile = Request.Form.Files["MusicFile"];
 
@@ -95,7 +101,7 @@ namespace StudyPage.Pages.Music
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string sql = "UPDATE music SET Name=@name, MusicFile=@musicfile WHERE MusicID=@id";
+                    string sql = "UPDATE music SET SongName=@name, MusicFile=@musicfile WHERE MusicID=@id";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@name", musicTrack.Name);
@@ -110,7 +116,7 @@ namespace StudyPage.Pages.Music
                 Console.WriteLine(ex.ToString());
                 throw;
             }
-            Response.Redirect("/Music/Index");
+            Response.Redirect("/MusicManagement/Index");
         }
     }
 

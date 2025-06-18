@@ -7,20 +7,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.Data.SqlClient;
 
-namespace StudyPage.Pages.Music
+namespace StudyPage.Pages.MusicManagement
 {
 
     public class CreateModel : PageModel
     {
+        private readonly IConfiguration _configuration;
+
         private readonly IWebHostEnvironment Environment;
         public string Message { get; set; }
 
         [BindProperty]
         public string Name { get; set; }
 
-        public CreateModel(IWebHostEnvironment _environment)
+        public CreateModel(IConfiguration configuration, IWebHostEnvironment _environment)
         {
             Environment = _environment;
+            _configuration = configuration;
         }
 
         public void OnGet()
@@ -48,11 +51,11 @@ namespace StudyPage.Pages.Music
                 // Save info to SQL Server
                 try
                 {
-                    string connectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=music;Integrated Security=True;Pooling=False;TrustServerCertificate=True";
+                    string connectionString = _configuration.GetConnectionString("DefaultConnection");
                     using (var connection = new SqlConnection(connectionString))
                     {
                         connection.Open();
-                        string sql = "INSERT INTO music (Name, MusicFile) VALUES (@Name, @MusicFile);";
+                        string sql = "INSERT INTO music (SongName, MusicFile) VALUES (@Name, @MusicFile);";
                         using (var command = new SqlCommand(sql, connection))
                         {
                             command.Parameters.AddWithValue("@Name", Name ?? Path.GetFileNameWithoutExtension(postedFile.FileName));
@@ -69,5 +72,5 @@ namespace StudyPage.Pages.Music
             }
         }
     }
-    
+
 }

@@ -1,16 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
 using System.IO;
 
-namespace StudyPage.Pages.Music
+namespace StudyPage.Pages.MusicManagement
 {
     public class DelModel : PageModel
     {
+            private readonly IConfiguration _configuration;
+            
         private readonly IWebHostEnvironment _env;
 
-        public DelModel(IWebHostEnvironment env)
+        public DelModel(IConfiguration configuration, IWebHostEnvironment env)
         {
+            _configuration = configuration;
             _env = env;
         }
 
@@ -21,7 +24,7 @@ namespace StudyPage.Pages.Music
 
             if (action == "delete" && !string.IsNullOrEmpty(id))
             {
-                string connectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=music;Integrated Security=True;Pooling=False;TrustServerCertificate=True";
+                string connectionString = _configuration.GetConnectionString("DefaultConnection");
                 string musicFile = null;
 
                 // 1. Get the file path from the database
@@ -66,7 +69,7 @@ namespace StudyPage.Pages.Music
             }
 
             // Redirect to Index in all cases
-            return RedirectToPage("/Music/Index");
+            return RedirectToPage("/MusicManagement/Index");
         }
     }
 }
