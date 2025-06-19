@@ -1,55 +1,56 @@
+using System.Data.SqlClient;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using StudyWorkspace.Models;
-using System.Data.SqlClient;
-namespace StudyWorkspace.Pages.Workspaces
+
+namespace StudyPage.Pages.WorkspaceManagement
 {
     public class IndexModel : PageModel
     {
-        private readonly string _connectionString;
-
+        private readonly IConfiguration _configuration;
+        
         public IndexModel(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _configuration = configuration;
         }
-
-        public List<Workspace> Workspaces { get; set; }
-
+        
+        public List<Workspace> Workspaces = new List<Workspace>();
+        
         public void OnGet()
         {
-            Workspaces = new List<Workspace>();
             try
             {
-                using (SqlConnection conn = new SqlConnection(_connectionString))
+                string connectionString = _configuration.GetConnectionString("DefaultConnection");
+                if (string.IsNullOrEmpty(connectionString))
                 {
-                    conn.Open();
-                    string query = "SELECT WorkspaceID, WorkspaceName, BackgroundImage FROM Workspaces";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    throw new ArgumentException("Connection string 'DefaultConnection' not found");
+                }
+                
+                using var connection = new SqlConnection(connectionString);
+                connection.Open();
+                string query = "SELECT * FROM Workspaces";
+                
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        Workspaces = new List<Workspace>();
+                        while (reader.Read())
                         {
-                            while (reader.Read())
+                            Workspaces.Add(new Workspace
                             {
-                                Workspaces.Add(new Workspace
-                                {
-                                    WorkspaceID = reader.GetInt32(0),
-                                    Name = reader.GetString(1),
-                                    BackgroundImage = reader.IsDBNull(2) ? null : reader.GetString(2)
-                                });
-                            }
+                                WorkspaceID = reader.GetInt32(reader.GetOrdinal("WorkspaceID")),
+                                WorkspaceName = reader.IsDBNull(reader.GetOrdinal("WorkspaceName")) ? string.Empty : reader.GetString(reader.GetOrdinal("WorkspaceName")),
+                                BackgroundImage = reader.IsDBNull(reader.GetOrdinal("BackgroundImage")) ? string.Empty : reader.GetString(reader.GetOrdinal("BackgroundImage"))
+                            });
                         }
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                // Log the exception or display a user-friendly message
-                ModelState.AddModelError(string.Empty, $"Database connection failed: {ex.Message}");
-            }
             catch (Exception ex)
             {
-                // Catch any other unexpected errors
-                ModelState.AddModelError(string.Empty, $"An unexpected error occurred: {ex.Message}");
+                // Handle exceptions (e.g., log the error, show a message to the user)
+                Console.WriteLine(ex.Message);
+                throw;
             }
         }
     }

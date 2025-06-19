@@ -35,9 +35,9 @@ namespace StudyPage.Pages.MusicManagement
                         {
                             MusicTrack.Add(new MusicTrack
                             {
-        MusicID = reader.GetInt32(reader.GetOrdinal("MusicID")),
-        SongName = reader.IsDBNull(reader.GetOrdinal("SongName")) ? string.Empty : reader.GetString(reader.GetOrdinal("SongName")),
-        MusicFile = reader.IsDBNull(reader.GetOrdinal("MusicFile")) ? string.Empty : reader.GetString(reader.GetOrdinal("MusicFile"))
+                                MusicID = reader.GetInt32(reader.GetOrdinal("MusicID")),
+                                SongName = reader.IsDBNull(reader.GetOrdinal("SongName")) ? string.Empty : reader.GetString(reader.GetOrdinal("SongName")),
+                                MusicFile = reader.IsDBNull(reader.GetOrdinal("MusicFile")) ? string.Empty : reader.GetString(reader.GetOrdinal("MusicFile"))
                             });
                         }
                     }

@@ -1,52 +1,44 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using StudyWorkspace.Models;
+using System;
 using System.Data.SqlClient;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc;
 
-namespace StudyWorkspace.Pages.Workspaces
+namespace StudyPage.Pages.WorkspaceManagement
 {
     public class EditModel : PageModel
     {
-        private readonly IWebHostEnvironment _env;
-        private readonly string _connectionString;
-
-        public EditModel(IWebHostEnvironment env, IConfiguration configuration)
+        private readonly IConfiguration _configuration;
+        
+        public EditModel(IConfiguration configuration)
         {
-            _env = env;
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _configuration = configuration;
         }
+        
+        public Workspace workspace = new Workspace();
+        public string errorMessage = "";
 
-        [BindProperty]
-        public Workspace Workspace { get; set; }
-
-        [BindProperty]
-        public IFormFile BackgroundImageFile { get; set; }
-
-        public IActionResult OnGet(int id)
+        public void OnGet()
         {
+            string id = Request.Query["id"];
             try
             {
-                using (SqlConnection conn = new SqlConnection(_connectionString))
+                string connectionString = _configuration.GetConnectionString("DefaultConnection");
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    conn.Open();
-                    string query = "SELECT WorkspaceID, WorkspaceName, BackgroundImage FROM Workspaces WHERE WorkspaceID = @Id";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    connection.Open();
+                    string sql = "SELECT * FROM Workspaces WHERE WorkspaceID = @id";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
                     {
-                        cmd.Parameters.AddWithValue("@Id", id);
-                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        command.Parameters.AddWithValue("@id", id);
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
                             {
-                                Workspace = new Workspace
-                                {
-                                    WorkspaceID = reader.GetInt32(0),
-                                    Name = reader.GetString(1),
-                                    BackgroundImage = reader.IsDBNull(2) ? null : reader.GetString(2)
-                                };
-                            }
-                            else
-                            {
-                                return NotFound();
+                                workspace.WorkspaceID = reader.GetInt32(reader.GetOrdinal("WorkspaceID"));
+                                workspace.WorkspaceName = reader.IsDBNull(reader.GetOrdinal("WorkspaceName")) ? string.Empty : reader.GetString(reader.GetOrdinal("WorkspaceName"));
+                                workspace.BackgroundImage = reader.IsDBNull(reader.GetOrdinal("BackgroundImage")) ? string.Empty : reader.GetString(reader.GetOrdinal("BackgroundImage"));
                             }
                         }
                     }
@@ -54,65 +46,78 @@ namespace StudyWorkspace.Pages.Workspaces
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, $"Error loading workspace: {ex.Message}");
-                return Page();
+                Console.WriteLine(ex.Message);
+                throw;
             }
-            return Page();
         }
 
-        public IActionResult OnPost()
+        public void OnPost()
         {
-            if (!ModelState.IsValid)
+            workspace.WorkspaceID = int.Parse(Request.Form["WorkspaceID"]);
+            workspace.WorkspaceName = Request.Form["WorkspaceName"];
+            string oldBackgroundImage = Request.Form["OldBackgroundImage"];
+            IFormFile uploadedFile = Request.Form.Files["BackgroundImage"];
+
+            // Kiểm tra tên workspace
+            if (string.IsNullOrEmpty(workspace.WorkspaceName))
             {
-                return Page();
+                errorMessage = "Tên workspace không được để trống!";
+                return;
             }
 
-            string imagePath = Workspace.BackgroundImage;
-            if (BackgroundImageFile != null)
+            // Xử lý file upload nếu có
+            string newBackgroundImage = oldBackgroundImage;
+            if (uploadedFile != null && uploadedFile.Length > 0)
             {
-                string uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", "workspaces");
-                Directory.CreateDirectory(uploadsFolder);
-                string uniqueFileName = Guid.NewGuid().ToString() + "_" + BackgroundImageFile.FileName;
+                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "backgrounds");
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+                string uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(uploadedFile.FileName);
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    BackgroundImageFile.CopyTo(fileStream);
+                    uploadedFile.CopyTo(fileStream);
                 }
-                imagePath = "/uploads/workspaces/" + uniqueFileName;
 
-                // Optionally delete old image if it exists
-                if (!string.IsNullOrEmpty(Workspace.BackgroundImage))
+                // Xóa file cũ nếu có
+                if (!string.IsNullOrEmpty(oldBackgroundImage))
                 {
-                    string oldImagePath = Path.Combine(_env.WebRootPath, Workspace.BackgroundImage.TrimStart('/'));
-                    if (System.IO.File.Exists(oldImagePath))
+                    var oldFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldBackgroundImage.Replace("/", Path.DirectorySeparatorChar.ToString()));
+                    if (System.IO.File.Exists(oldFilePath))
                     {
-                        System.IO.File.Delete(oldImagePath);
+                        System.IO.File.Delete(oldFilePath);
                     }
                 }
+
+                newBackgroundImage = "uploads/backgrounds/" + uniqueFileName;
             }
 
+            // Cập nhật vào database
             try
             {
-                using (SqlConnection conn = new SqlConnection(_connectionString))
+                string connectionString = _configuration.GetConnectionString("DefaultConnection");
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    conn.Open();
-                    string query = "UPDATE Workspaces SET WorkspaceName = @Name, BackgroundImage = @BackgroundImage WHERE WorkspaceID = @Id";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    connection.Open();
+                    string sql = "UPDATE Workspaces SET WorkspaceName=@name, BackgroundImage=@backgroundImage WHERE WorkspaceID=@id";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
                     {
-                        cmd.Parameters.AddWithValue("@Name", Workspace.Name);
-                        cmd.Parameters.AddWithValue("@BackgroundImage", (object)imagePath ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@Id", Workspace.WorkspaceID);
-                        cmd.ExecuteNonQuery();
+                        command.Parameters.AddWithValue("@name", workspace.WorkspaceName);
+                        command.Parameters.AddWithValue("@backgroundImage", newBackgroundImage);
+                        command.Parameters.AddWithValue("@id", workspace.WorkspaceID);
+                        command.ExecuteNonQuery();
                     }
                 }
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, $"Error updating workspace: {ex.Message}");
-                return Page();
+                Console.WriteLine(ex.ToString());
+                throw;
             }
-
-            return RedirectToPage("Index");
+            Response.Redirect("/WorkspaceManagement/Index");
         }
     }
 }

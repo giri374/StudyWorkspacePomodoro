@@ -1,0 +1,53 @@
+﻿@page
+@model StudyWorkspace.Pages.Workspaces.IndexModel
+@{
+    ViewData["Title"] = "Quản lý không gian làm việc";
+}
+
+<h1>Quản lý không gian làm việc</h1>
+
+@if (!ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+
+<p><a asp-page="Create" class="btn btn-primary">Thêm không gian mới</a></p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên không gian</th>
+            <th>Ảnh nền</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var workspace in Model.Workspaces)
+        {
+            <tr>
+                <td>@workspace.Name</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(workspace.BackgroundImage))
+                    {
+                        <img src="@workspace.BackgroundImage" alt="@workspace.Name" style="width: 100px;" />
+                    }
+                    else
+                    {
+                        <span>Không có ảnh</span>
+                    }
+                </td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@workspace.WorkspaceID" class="btn btn-warning">Sửa</a>
+                    <a asp-page="Delete" asp-route-id="@workspace.WorkspaceID" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />

@@ -1,71 +1,73 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using StudyWorkspace.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 using System.Data.SqlClient;
 
-namespace StudyWorkspace.Pages.Workspaces
+namespace StudyPage.Pages.WorkspaceManagement
 {
     public class CreateModel : PageModel
     {
-        private readonly IWebHostEnvironment _env;
-        private readonly string _connectionString;
-
-        public CreateModel(IWebHostEnvironment env, IConfiguration configuration)
-        {
-            _env = env;
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
-        }
-
+        private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment Environment;
+        public string Message { get; set; }
 
         [BindProperty]
-        public Workspace Workspace { get; set; }
+        public string WorkspaceName { get; set; }
 
-        [BindProperty]
-        public IFormFile BackgroundImageFile { get; set; }
-
-public IActionResult OnPost()
-{
-    if (!ModelState.IsValid)
-    {
-        // ModelState.AddModelError(string.Empty, "Invalid model state. Please check the input fields.");
-                return Page();
-    }
-
-    try
-    {
-        string imagePath = null;
-        if (BackgroundImageFile != null)
+        public CreateModel(IConfiguration configuration, IWebHostEnvironment _environment)
         {
-            string uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", "workspaces");
-            Directory.CreateDirectory(uploadsFolder);
-            string uniqueFileName = Guid.NewGuid().ToString() + "_" + BackgroundImageFile.FileName;
-            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                BackgroundImageFile.CopyTo(fileStream);
-            }
-            imagePath = "/uploads/workspaces/" + uniqueFileName;
+            Environment = _environment;
+            _configuration = configuration;
         }
 
-        using (SqlConnection conn = new SqlConnection(_connectionString))
+        public void OnGet()
         {
-            conn.Open();
-            string query = "INSERT INTO Workspaces (WorkspaceName, BackgroundImage) VALUES (@Name, @BackgroundImage)";
-            using (SqlCommand cmd = new SqlCommand(query, conn))
-            {
-                cmd.Parameters.AddWithValue("@Name", Workspace.Name);
-                cmd.Parameters.AddWithValue("@BackgroundImage", (object)imagePath ?? DBNull.Value);
-                cmd.ExecuteNonQuery();
-            }
         }
 
-        return RedirectToPage("Index");
-    }
-    catch (Exception ex)
-    {
-        ModelState.AddModelError(string.Empty, $"Error creating workspace: {ex.Message}");
-        return Page();
-    }
-}
+        public void OnPostUpload(List<IFormFile> postedFiles)
+        {
+            string uploadsFolder = Path.Combine(Environment.WebRootPath, "uploads", "backgrounds");
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            foreach (IFormFile postedFile in postedFiles)
+            {
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(postedFile.FileName);
+                string filePath = Path.Combine(uploadsFolder, fileName);
+
+                using (FileStream stream = new FileStream(filePath, FileMode.Create))
+                {
+                    postedFile.CopyTo(stream);
+                }
+
+                // Save info to SQL Server
+                try
+                {
+                    string connectionString = _configuration.GetConnectionString("DefaultConnection");
+                    using (var connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
+                        string sql = "INSERT INTO Workspaces (WorkspaceName, BackgroundImage) VALUES (@WorkspaceName, @BackgroundImage);";
+                        using (var command = new SqlCommand(sql, connection))
+                        {
+                            command.Parameters.AddWithValue("@WorkspaceName", WorkspaceName ?? Path.GetFileNameWithoutExtension(postedFile.FileName));
+                            command.Parameters.AddWithValue("@BackgroundImage", "uploads/backgrounds/" + fileName);
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                    Message += $"<b>{fileName}</b> uploaded and workspace created.<br />";
+                }
+                catch (Exception ex)
+                {
+                    Message += $"Error saving workspace for {fileName}: {ex.Message}<br />";
+                }
+            }
+        }
     }
 }

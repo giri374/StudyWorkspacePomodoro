@@ -1,44 +1,54 @@
+using System;
+using System.Data.SqlClient;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using StudyWorkspace.Models;
-using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
-namespace StudyWorkspace.Pages.Workspaces
+namespace StudyPage.Pages.WorkspaceManagement
 {
     public class DeleteModel : PageModel
     {
-        private readonly IWebHostEnvironment _env;
-        private readonly string _connectionString;
-
-        public DeleteModel(IWebHostEnvironment env, IConfiguration configuration)
-        {
-            _env = env;
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
-        }
+        private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _environment;
 
         [BindProperty]
         public Workspace Workspace { get; set; }
+        public string ErrorMessage { get; set; }
 
-        public IActionResult OnGet(int id)
+        public DeleteModel(IConfiguration configuration, IWebHostEnvironment environment)
         {
+            _configuration = configuration;
+            _environment = environment;
+        }
+
+        public IActionResult OnGet(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
             try
             {
-                using (SqlConnection conn = new SqlConnection(_connectionString))
+                string connectionString = _configuration.GetConnectionString("DefaultConnection");
+                using (var connection = new SqlConnection(connectionString))
                 {
-                    conn.Open();
-                    string query = "SELECT WorkspaceID, WorkspaceName, BackgroundImage FROM Workspaces WHERE WorkspaceID = @Id";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    connection.Open();
+                    string sql = "SELECT WorkspaceID, WorkspaceName, BackgroundImage FROM Workspaces WHERE WorkspaceID = @id";
+                    using (var command = new SqlCommand(sql, connection))
                     {
-                        cmd.Parameters.AddWithValue("@Id", id);
-                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        command.Parameters.AddWithValue("@id", id);
+                        using (var reader = command.ExecuteReader())
                         {
                             if (reader.Read())
                             {
                                 Workspace = new Workspace
                                 {
-                                    WorkspaceID = reader.GetInt32(0),
-                                    Name = reader.GetString(1),
-                                    BackgroundImage = reader.IsDBNull(2) ? null : reader.GetString(2)
+                                    WorkspaceID = reader.GetInt32(reader.GetOrdinal("WorkspaceID")),
+                                    WorkspaceName = reader.GetString(reader.GetOrdinal("WorkspaceName")),
+                                    BackgroundImage = reader.IsDBNull(reader.GetOrdinal("BackgroundImage")) ? string.Empty : reader.GetString(reader.GetOrdinal("BackgroundImage"))
                                 };
                             }
                             else
@@ -51,43 +61,69 @@ namespace StudyWorkspace.Pages.Workspaces
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, $"Error loading workspace for deletion: {ex.Message}");
+                ErrorMessage = $"An error occurred: {ex.Message}";
                 return Page();
             }
+
             return Page();
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
             try
             {
-                using (SqlConnection conn = new SqlConnection(_connectionString))
+                string connectionString = _configuration.GetConnectionString("DefaultConnection");
+                using (var connection = new SqlConnection(connectionString))
                 {
-                    conn.Open();
-                    string query = "DELETE FROM Workspaces WHERE WorkspaceID = @Id";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    connection.Open();
+
+                    // Step 1: Get the file path from the database before deleting the record.
+                    string backgroundImagePath = null;
+                    string sqlSelect = "SELECT BackgroundImage FROM Workspaces WHERE WorkspaceID = @id";
+                    using (var selectCommand = new SqlCommand(sqlSelect, connection))
                     {
-                        cmd.Parameters.AddWithValue("@Id", Workspace.WorkspaceID);
-                        cmd.ExecuteNonQuery();
+                        selectCommand.Parameters.AddWithValue("@id", id.Value);
+                        var result = selectCommand.ExecuteScalar();
+                        if (result != null)
+                        {
+                            backgroundImagePath = result.ToString();
+                        }
+                    }
+
+                    // Step 2: Delete the record from the database.
+                    string sqlDelete = "DELETE FROM Workspaces WHERE WorkspaceID = @id";
+                    using (var deleteCommand = new SqlCommand(sqlDelete, connection))
+                    {
+                        deleteCommand.Parameters.AddWithValue("@id", id.Value);
+                        deleteCommand.ExecuteNonQuery();
+                    }
+
+                    // Step 3: Delete the physical file from the wwwroot/uploads folder.
+                    if (!string.IsNullOrEmpty(backgroundImagePath))
+                    {
+                        string fullPath = Path.Combine(_environment.WebRootPath, backgroundImagePath);
+                        if (System.IO.File.Exists(fullPath))
+                        {
+                            System.IO.File.Delete(fullPath);
+                        }
                     }
                 }
 
-                if (!string.IsNullOrEmpty(Workspace.BackgroundImage))
-                {
-                    string imagePath = Path.Combine(_env.WebRootPath, Workspace.BackgroundImage.TrimStart('/'));
-                    if (System.IO.File.Exists(imagePath))
-                    {
-                        System.IO.File.Delete(imagePath);
-                    }
-                }
+                return RedirectToPage("./Index");
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, $"Error deleting workspace: {ex.Message}");
+                // In case of an error during post, log it and show the page again.
+                ErrorMessage = $"An error occurred during deletion: {ex.Message}";
+                // Re-populate the Workspace property to display details on the page.
+                OnGet(id);
                 return Page();
             }
-
-            return RedirectToPage("Index");
         }
     }
 }
