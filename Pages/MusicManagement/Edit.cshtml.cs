@@ -35,9 +35,9 @@ namespace StudyPage.Pages.MusicManagement
                         {
                             if (reader.Read())
                             {
-                                musicTrack.MusicID = reader.GetInt32(0);
-                                musicTrack.Name = reader.GetString(1);
-                                musicTrack.MusicFile = reader.GetString(2);
+                                musicTrack.MusicID = reader.GetInt32(reader.GetOrdinal("MusicID"));
+                                musicTrack.SongName = reader.IsDBNull(reader.GetOrdinal("SongName")) ? string.Empty : reader.GetString(reader.GetOrdinal("SongName"));
+                                musicTrack.MusicFile = reader.IsDBNull(reader.GetOrdinal("MusicFile")) ? string.Empty : reader.GetString(reader.GetOrdinal("MusicFile"));
                             }
                         }
                     }
@@ -53,12 +53,12 @@ namespace StudyPage.Pages.MusicManagement
         public void OnPost()
         {
             musicTrack.MusicID = int.Parse(Request.Form["MusicID"]);
-            musicTrack.Name = Request.Form["SongName"];
+            musicTrack.SongName = Request.Form["SongName"];
             string oldMusicFile = Request.Form["OldMusicFile"];
             IFormFile uploadedFile = Request.Form.Files["MusicFile"];
 
             // Kiểm tra tên bài hát
-            if (string.IsNullOrEmpty(musicTrack.Name))
+            if (string.IsNullOrEmpty(musicTrack.SongName))
             {
                 errorMessage = "Tên bài hát không được để trống!";
                 return;
@@ -104,7 +104,7 @@ namespace StudyPage.Pages.MusicManagement
                     string sql = "UPDATE music SET SongName=@name, MusicFile=@musicfile WHERE MusicID=@id";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
-                        command.Parameters.AddWithValue("@name", musicTrack.Name);
+                        command.Parameters.AddWithValue("@name", musicTrack.SongName);
                         command.Parameters.AddWithValue("@musicfile", newMusicFile);
                         command.Parameters.AddWithValue("@id", musicTrack.MusicID);
                         command.ExecuteNonQuery();

@@ -17,6 +17,7 @@
     <div class="pomodoro-box">
         <h2>@Model.Mode</h2>
         @* <h3 id="timer">@Model.TimerDisplay</h3> *@
+        
         <h3 id="timer" data-timer="@Model.TimerInSeconds">@Model.TimerDisplay</h3>
         <form method="post">
             <button type="submit" name="action" value="StartPomodoro">Start Pomodoro</button>

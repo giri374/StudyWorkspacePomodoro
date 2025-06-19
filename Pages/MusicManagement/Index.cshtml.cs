@@ -25,7 +25,7 @@ namespace StudyPage.Pages.MusicManagement
                 using var connection = new SqlConnection(connectionString);
 
                 connection.Open();
-                string query = "SELECT * from music";
+                string query = "SELECT * from Music";
                 using (System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand(query, connection))
                 {
                     using (System.Data.SqlClient.SqlDataReader reader = command.ExecuteReader())
@@ -35,9 +35,9 @@ namespace StudyPage.Pages.MusicManagement
                         {
                             MusicTrack.Add(new MusicTrack
                             {
-                                MusicID = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
-                                Name = reader.IsDBNull(1) ? string.Empty : reader.GetString(1),
-                                MusicFile = reader.IsDBNull(2) ? string.Empty : reader.GetString(2)
+        MusicID = reader.GetInt32(reader.GetOrdinal("MusicID")),
+        SongName = reader.IsDBNull(reader.GetOrdinal("SongName")) ? string.Empty : reader.GetString(reader.GetOrdinal("SongName")),
+        MusicFile = reader.IsDBNull(reader.GetOrdinal("MusicFile")) ? string.Empty : reader.GetString(reader.GetOrdinal("MusicFile"))
                             });
                         }
                     }

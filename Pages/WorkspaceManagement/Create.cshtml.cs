@@ -27,8 +27,8 @@ public IActionResult OnPost()
 {
     if (!ModelState.IsValid)
     {
-        ModelState.AddModelError(string.Empty, "Invalid model state. Please check the input fields.");
-        return Page();
+        // ModelState.AddModelError(string.Empty, "Invalid model state. Please check the input fields.");
+                return Page();
     }
 
     try

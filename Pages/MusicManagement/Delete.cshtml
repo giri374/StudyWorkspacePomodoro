@@ -1,71 +1,48 @@
-﻿@page
-@using System.Data.SqlClient;
+@page "{id:int}"
+@model StudyPage.Pages.MusicManagement.DeleteModel
+
 @{
-    try
-    {
-        string id = Request.Query["id"];
-        
-        
-        string connectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=music;Integrated Security=True;Pooling=False;TrustServerCertificate=True";
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            connection.Open();
-
-			string link = "SELECT MusicFile FROM music WHERE MusicID=@id";
-			using (SqlCommand command = new SqlCommand(link, connection))
-			{
-				command.Parameters.AddWithValue("@id", id);
-				string musicFile = command.ExecuteScalar() as string;
-				if (!string.IsNullOrEmpty(musicFile))
-				{
-					
-					
-					System.IO.File.Delete(musicFile);
-					
-				}
-			}
-
-			string sql = "DELETE FROM music WHERE MusicID=@id";
-            using (SqlCommand command = new SqlCommand(sql, connection))
-            {
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-            }
-            
-        }
-
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine(ex.ToString());
-        throw;
-    }
-    Response.Redirect("/Music/Index"); 
+    ViewData["Title"] = "Delete";
 }
 
+<h1>Delete Music</h1>
+<hr />
 
-@*@page
-@using System.Data.SqlClient;
-@{
-    try
-    {
-        string id = Request.Query["id"];
-        string connectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=music;Integrated Security=True;Pooling=False;TrustServerCertificate=True";
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            connection.Open();
-            string sql = "DELETE FROM music WHERE MusicID=@id";
-            using (SqlCommand command = new SqlCommand(sql, connection))
-            {
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-            }
-        }
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine(ex.ToString());
-        throw;
-    }
-    Response.Redirect("/Music/Index"); 
-}*@
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+<h3>Are you sure you want to delete this track?</h3>
+
+@if (Model.MusicTrack != null)
+{
+<div>
+    <h4>Track Details</h4>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Song Name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MusicTrack.SongName)
+        </dd>
+        <dt class="col-sm-2">
+            File Path
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MusicTrack.MusicFile)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="MusicTrack.MusicID" />
+        <button type="submit" class="btn btn-danger">Delete</button> |
+        <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+}
+else if(string.IsNullOrEmpty(Model.ErrorMessage))
+{
+     <div class="alert alert-warning">Track not found. It may have already been deleted.</div>
+     <a asp-page="./Index" class="btn btn-primary">Back to List</a>
+}
