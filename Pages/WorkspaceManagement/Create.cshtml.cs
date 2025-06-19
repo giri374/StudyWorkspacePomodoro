@@ -23,40 +23,49 @@ namespace StudyWorkspace.Pages.Workspaces
         [BindProperty]
         public IFormFile BackgroundImageFile { get; set; }
 
-        public IActionResult OnPost()
+public IActionResult OnPost()
+{
+    if (!ModelState.IsValid)
+    {
+        ModelState.AddModelError(string.Empty, "Invalid model state. Please check the input fields.");
+        return Page();
+    }
+
+    try
+    {
+        string imagePath = null;
+        if (BackgroundImageFile != null)
         {
-                if (!ModelState.IsValid)
-                {
-                    return Page();
-                }
-
-                string imagePath = null;
-                if (BackgroundImageFile != null)
-                {
-                    string uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", "workspaces");
-                    Directory.CreateDirectory(uploadsFolder);
-                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + BackgroundImageFile.FileName;
-                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        BackgroundImageFile.CopyTo(fileStream);
-                    }
-                    imagePath = "/uploads/workspaces/" + uniqueFileName;
-                }
-
-                using (SqlConnection conn = new SqlConnection(_connectionString))
-                {
-                    conn.Open();
-                    string query = "INSERT INTO Workspaces (WorkspaceName, BackgroundImage) VALUES (@Name, @BackgroundImage)";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@Name", Workspace.Name);
-                        cmd.Parameters.AddWithValue("@BackgroundImage", (object)imagePath ?? DBNull.Value);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-
-                return RedirectToPage("Index");
+            string uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", "workspaces");
+            Directory.CreateDirectory(uploadsFolder);
+            string uniqueFileName = Guid.NewGuid().ToString() + "_" + BackgroundImageFile.FileName;
+            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                BackgroundImageFile.CopyTo(fileStream);
+            }
+            imagePath = "/uploads/workspaces/" + uniqueFileName;
         }
+
+        using (SqlConnection conn = new SqlConnection(_connectionString))
+        {
+            conn.Open();
+            string query = "INSERT INTO Workspaces (WorkspaceName, BackgroundImage) VALUES (@Name, @BackgroundImage)";
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@Name", Workspace.Name);
+                cmd.Parameters.AddWithValue("@BackgroundImage", (object)imagePath ?? DBNull.Value);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        return RedirectToPage("Index");
+    }
+    catch (Exception ex)
+    {
+        ModelState.AddModelError(string.Empty, $"Error creating workspace: {ex.Message}");
+        return Page();
+    }
+}
     }
 }

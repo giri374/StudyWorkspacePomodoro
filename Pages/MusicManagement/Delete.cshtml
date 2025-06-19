@@ -1,9 +1,11 @@
 ﻿@page
-@using Microsoft.Data.SqlClient;
+@using System.Data.SqlClient;
 @{
     try
     {
         string id = Request.Query["id"];
+        
+        
         string connectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=music;Integrated Security=True;Pooling=False;TrustServerCertificate=True";
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
@@ -43,7 +45,7 @@
 
 
 @*@page
-@using Microsoft.Data.SqlClient;
+@using System.Data.SqlClient;
 @{
     try
     {

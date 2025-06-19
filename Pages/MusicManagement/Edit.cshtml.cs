@@ -23,7 +23,7 @@ namespace StudyPage.Pages.MusicManagement
             string id = Request.Query["id"];
             try
             {
-                string connectionString = _configuration.GetConnectionString("DefaultConnection");;
+                string connectionString = _configuration.GetConnectionString("DefaultConnection");
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -97,7 +97,7 @@ namespace StudyPage.Pages.MusicManagement
             // Cập nhật vào database
             try
             {
-                string connectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=music;Integrated Security=True;Pooling=False;TrustServerCertificate=True";
+                string connectionString = _configuration.GetConnectionString("DefaultConnection");
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

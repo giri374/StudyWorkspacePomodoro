@@ -1,5 +1,0 @@
-Xin chào, mình là Linh.
-Năm nay mình 20 tuổi, là sinh viên khoa Công nghệ thông tin trường đại học Kiến trúc Hà Nội. Mình lựa chọn ngành đang học vì nhận thấy ngành có cơ hội phát triển tốt, có nhiều lựa chọn nghề nghiệp. Khi vào học, mình nhận ra đây là một ngành hay nhưng rất khó, nhiều cơ hội việc làm nhưng cũng nhiều cạnh tranh. Định hướng tương lai của mình sao? Mình không biết. Bây giờ, mình cần kết nối front end và back end cho môn công nghệ web, sửa lại những đường dẫn bị lỗi, làm báo cáo cho môn thiết kế tương tác. Quên mất. mình  cần phải sửa file css, còn phải sắp xếp lại  thư mục dự án...
-(Roạt-Cầm lấy cốc - Truung cảnh ra cận cảnh)
-(Đặt cốc ra bàn, ngả người ra ghế)
-À, mình chưa kể với bạn. Mình sinh ra và lớn lên tại Hà Nội. Mình nghĩ Hà Nội hơi ồn ào và nóng bức, nhưng mình yêu nơi này. 
