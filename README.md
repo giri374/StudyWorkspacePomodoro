@@ -14,7 +14,8 @@
 1. Copy file `appsettings.example.json` thành `appsettings.json`
 2. Chỉnh sửa `ConnectionStrings` phù hợp với máy của bạn. Cần sửa User ID, Password
 3. KHÔNG commit `appsettings.json` vào Git (đã được ignore) 
-VD Connectionstring của Đinh Linh: "Data Source=localhost\\sqlexpress;Initial Catalog=music;Integrated Security=True;Pooling=False;TrustServerCertificate=True"
++ VD Connectionstring của Đinh Linh: "Data Source=localhost\\sqlexpress;Initial Catalog=music;Integrated Security=True;Pooling=False;TrustServerCertificate=True"
++ VD2: "Server=myServerAddress\sqlexpress;Database=PomodoroDB;Integrated Security=True;Pooling=False;TrustServerCertificate=True"
 
 ## Miêu tả web:
 4 màn hình:pomodoro, quản lý workspace, quản lý nhạc, cài đặt pomodoro
@@ -36,106 +37,4 @@ Giao diện
 
  # Structure
 
- StudyWorkspace/
-
-│
-
-├── Pages/                   # Contains all Razor Pages
-
-│   ├── Workspaces/          # Pages for managing workspaces
-
-│   │   ├── Index.cshtml     # List all workspaces
-
-│   │   ├── Index.cshtml.cs  # Logic for listing workspaces
-
-│   │   ├── Create.cshtml    # Form to create a workspace
-
-│   │   ├── Create.cshtml.cs # Logic for creating a workspace
-
-│   │   ├── Edit.cshtml      # Form to edit a workspace
-
-│   │   ├── Edit.cshtml.cs   # Logic for editing a workspace
-
-│   │   └── Delete.cshtml    # Confirmation page for deletion
-
-│   │       └── Delete.cshtml.cs # Logic for deleting a workspace
-
-│   ├── Music/               # Pages for managing background music
-
-│   │   ├── Index.cshtml     # List all music tracks
-
-│   │   ├── Index.cshtml.cs  # Logic for listing music
-
-│   │   ├── Create.cshtml    # Form to upload new music
-
-│   │   ├── Create.cshtml.cs # Logic for uploading music
-
-│   │   ├── Edit.cshtml      # Form to edit music details
-
-│   │   ├── Edit.cshtml.cs   # Logic for editing music
-
-│   │   └── Delete.cshtml    # Confirmation page for deletion
-
-│   │       └── Delete.cshtml.cs # Logic for deleting music
-
-│   ├── MainScreen/            # Main Pomodoro timer page
-
-│   │   ├── Index.cshtml     # Pomodoro interface
-
-│   │   └── Index.cshtml.cs  # Logic for timer and selections
-
-│   ├── Shared/              # Shared components like layout
-
-│   │   └── _Layout.cshtml   # Common layout for all pages
-
-│   └── _ViewStart.cshtml    # Sets default layout for pages
-
-│
-
-├── uploads/
-
-│   ├── images/
-
-│   ├── sound/
-
-│   └── music/
-
-│
-
-├── Models/                  # Data model classes
-
-│   ├── Workspace.cs         # Represents a workspace in the database
-
-│   └── Music.cs             # Represents a music track in the database
-
-│
-
-├── wwwroot/                 # Static files (CSS, JS, images, audio)
-
-│   ├── css/                 # CSS files
-
-│   │   └── site.css         # Main stylesheet
-
-│   ├── js/                  # JavaScript files
-
-│   │   └── site.js          # Main client-side script
-
-│   ├── images/              # Image files
-
-│   │   └── workspaces/      # Background images for workspaces
-
-│   └── audio/               # Audio files
-
-│       └── music/           # Background music tracks
-
-│
-
-├── appsettings.json         # Application configuration (e.g., database connection string)
-
-│
-
-├── Program.cs               # Application entry point
-
-│
-
-└── StudyWorkspace.csproj    # Project file with NuGet packages and settings
+![image](https://github.com/user-attachments/assets/f573a9de-a1e9-4b02-92e2-4848d30cef90)
