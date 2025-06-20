@@ -3,6 +3,8 @@
 
 @model StudyPage.Pages.MusicManagement.CreateModel
 
+<link rel="stylesheet" href="~/css/background.css" />
+
 <h2>Add new background sound</h2>
 
 <form method="post" enctype="multipart/form-data">
@@ -13,6 +15,6 @@
     <span style="color:green">@Html.Raw(Model.Message)</span>
 </form>
 <button>
-	<a asp-page="/MusicManagement/Index">Return</a>
+	<a asp-page="/MusicManagement/Index"  class="button">Return</a>
 </button>
 

@@ -3,34 +3,36 @@
 @{
     Layout = "_Layout";
 }
+@{
+    ViewData["WorkspaceImage"] = Model.SelectedWorkspaceImage;
+}
 
-<div class="background" style="background-image: url('@Model.SelectedWorkspaceImage'); background-size: cover; background-position: center; min-height: 100vh;">
-    <div class="top-controls" style="position: absolute; top: 20px; left: 20px; z-index: 100;">
-        <form method="post" id="optionsForm" style="display: flex; gap: 10px;">
-            <select asp-for="SelectedWorkspaceId" asp-items="Model.WorkspaceList" 
-                    style="padding: 8px; border-radius: 4px; border: 1px solid #ccc; background: rgba(255,255,255,0.9);">
-            </select>
-            <select asp-for="SelectedMusicId" asp-items="Model.MusicList" 
-                    style="padding: 8px; border-radius: 4px; border: 1px solid #ccc; background: rgba(255,255,255,0.9);">
-            </select>
+<link rel="stylesheet" href="~/css/workspace.css" />
+<link rel="stylesheet" href="~/css/main.css" />
+
+@* <body class="page-container" style="background-image: url('@Model.SelectedWorkspaceImage'); background-size: cover; background-position: center; background-repeat: no-repeat;"> *@
+<section class="workspace-container">
+    <!-- Hộp Pomodoro Timer -->
+    <div class="timer-box">
+        <div class="mode-switch">
+            <span class="mode" onclick="document.querySelector('button[name=action][value=StartPomodoro]').click()">FOCUS</span>
+            <span class="mode" onclick="document.querySelector('button[name=action][value=ShortBreak]').click()">SHORT BREAK</span>
+            <span class="mode" onclick="document.querySelector('button[name=action][value=LongBreak]').click()">LONG BREAK</span>
+        </div>
+
+        <div class="time-display">
+            <span id="timer" data-timer="@Model.TimerInSeconds">@Model.TimerDisplay</span>
+            <div class="unit-labels">
+                <span>MIN</span>
+                <span>SEC</span>
+            </div>
+        </div>
+
+        <form method="post" id="pomodoroForm">
+            <button type="submit" name="action" value="StartPomodoro" class="start-btn">START</button>
+            <button type="submit" name="action" value="Reset" class="start-btn" style="background-color: #f44336; margin-left: 10px;">RESET</button>
         </form>
-    </div>
 
-    <div class="workspace-title" style="text-align: center; padding-top: 50px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
-        <h1 style="font-size: 2.5em; margin-bottom: 20px;">@Model.SelectedWorkspaceName</h1>
-    </div>
-
-    <div class="pomodoro-box" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-                                   background: rgba(255,255,255,0.95); padding: 40px; border-radius: 15px; 
-                                   box-shadow: 0 10px 30px rgba(0,0,0,0.3); text-align: center; min-width: 300px;">
-        
-        <h2 style="color: #333; margin-bottom: 20px; font-size: 1.8em;">@Model.Mode</h2>
-        
-        <h3 id="timer" data-timer="@Model.TimerInSeconds" 
-            style="font-size: 3em; color: #d32f2f; font-weight: bold; margin: 20px 0; font-family: 'Courier New', monospace;">
-            @Model.TimerDisplay
-        </h3>
-        
         <!-- Audio Elements -->
         <audio id="musicPlayer" preload="auto" loop>
             <source src="@Model.SelectedMusicFile" type="audio/mpeg" />
@@ -42,106 +44,56 @@
             <source src="/sounds/alarm.mp3" type="audio/mpeg" />
             <source src="/sounds/alarm.ogg" type="audio/ogg" />
         </audio>
-        
-        <!-- Control Buttons -->
-        <form method="post" id="pomodoroForm" style="margin-top: 30px;">
-            <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
-                <button type="submit" name="action" value="StartPomodoro" 
-                        style="background: #4caf50; color: white; border: none; padding: 12px 20px; 
-                               border-radius: 6px; cursor: pointer; font-size: 1em; min-width: 120px;">
-                    Start Pomodoro
-                </button>
-                
-                <button type="submit" name="action" value="ShortBreak" 
-                        style="background: #ff9800; color: white; border: none; padding: 12px 20px; 
-                               border-radius: 6px; cursor: pointer; font-size: 1em; min-width: 120px;">
-                    Short Break
-                </button>
-                
-                <button type="submit" name="action" value="LongBreak" 
-                        style="background: #2196f3; color: white; border: none; padding: 12px 20px; 
-                               border-radius: 6px; cursor: pointer; font-size: 1em; min-width: 120px;">
-                    Long Break
-                </button>
-                
-                <button type="submit" name="action" value="Reset" 
-                        style="background: #f44336; color: white; border: none; padding: 12px 20px; 
-                               border-radius: 6px; cursor: pointer; font-size: 1em; min-width: 120px;">
-                    Reset
-                </button>
-            </div>
-        </form>
-        
-        <!-- Music Controls (Optional) -->
-        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
-            <small style="color: #666;">
-                Music: <span id="musicStatus">@(Model.SelectedMusicId > 0 ? "Ready" : "No music selected")</span>
-                <br>
-                <em>Music plays automatically during Pomodoro sessions</em>
-            </small>
+    </div>
+
+    <!-- Khu vực mở rộng bên phải -->
+    <div class="side-panel">
+        <!-- Hình nền hiện tại -->
+        <div class="preview-box">
+            <div class="image-preview" style="background-image: url('@Model.SelectedWorkspaceImage');"></div>
+            <p class="preview-label">Hình nền: @Model.SelectedWorkspaceName</p>
+        </div>
+
+        <!-- Chọn hình nền khác -->
+        <div class="background-picker">
+            <label for="workspace-select">Chọn hình nền:</label>
+            <form method="post" id="optionsForm">
+                <select id="workspace-select" asp-for="SelectedWorkspaceId" asp-items="Model.WorkspaceList" 
+                        onchange="this.form.submit()"></select>
+            </form>
+        </div>
+
+        <!-- Bài hát hiện tại -->
+        <div class="preview-box">
+            <div class="song-icon">🎵</div>
+            <p class="preview-label">Bài hát: @(Model.SelectedMusicId > 0 ? Model.MusicList.FirstOrDefault(m => m.Selected)?.Text : "No music selected")</p>
+        </div>
+
+        <!-- Chọn bài hát -->
+        <div class="background-picker">
+            <label for="music-select">Chọn bài hát:</label>
+            <form method="post" id="musicForm">
+                <select id="music-select" asp-for="SelectedMusicId" asp-items="Model.MusicList" 
+                        onchange="this.form.submit()"></select>
+            </form>
         </div>
     </div>
-</div>
-
-<style>
-    .background {
-        position: relative;
-        width: 100%;
-        min-height: 100vh;
-        background-attachment: fixed;
-    }
-    
-    .top-controls select {
-        transition: all 0.3s ease;
-    }
-    
-    .top-controls select:hover {
-        background: rgba(255,255,255,1);
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-    
-    .pomodoro-box button {
-        transition: all 0.3s ease;
-    }
-    
-    .pomodoro-box button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    
-    .pomodoro-box button:active {
-        transform: translateY(0);
-    }
-    
-    #timer {
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    }
-    
-    @* @media (max-width: 768px) { *@
-        .pomodoro-box {
-            margin: 20px;
-            padding: 20px;
-            position: relative !important;
-            top: auto !important;
-            left: auto !important;
-            transform: none !important;
-        }
-        
-        .workspace-title h1 {
-            font-size: 1.8em;
-        }
-        
-        #timer {
-            font-size: 2em;
-        }
-        
-        .pomodoro-box button {
-            min-width: 100px;
-            font-size: 0.9em;
-        }
-    }
-</style>
+</section>
 
 @section Scripts {
     <script src="/js/pomodoro.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modeSwitch = document.querySelectorAll('.mode');
+            const updateActiveMode = () => {
+                modeSwitch.forEach(mode => {
+                    mode.classList.remove('active');
+                    if (mode.textContent === '@Model.Mode'.toUpperCase()) {
+                        mode.classList.add('active');
+                    }
+                });
+            };
+            updateActiveMode();
+        });
+    </script>
 }

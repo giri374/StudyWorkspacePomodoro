@@ -2,20 +2,99 @@
 @model StudyPage.Pages.MusicManagement.IndexModel
 @{
 }
-@*
 
+<style>
+    /* Custom button styles with borders */
+    .btn-primary-custom {
+        background-color: #1b6ec2;
+        color: white;
+        border: 2px solid #1861ac;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 4px;
+        display: inline-block;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-primary-custom:hover {
+        background-color: #1861ac;
+        border-color: #155a9c;
+        color: white;
+        text-decoration: none;
+    }
+    
+    .btn-info-custom {
+        background-color: #17a2b8;
+        color: white;
+        border: 2px solid #138496;
+        padding: 6px 12px;
+        text-decoration: none;
+        border-radius: 4px;
+        display: inline-block;
+        font-weight: 500;
+        margin-right: 8px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-info-custom:hover {
+        background-color: #138496;
+        border-color: #117a8b;
+        color: white;
+        text-decoration: none;
+    }
+    
+    .btn-danger-custom {
+        background-color: #dc3545;
+        color: white;
+        border: 2px solid #c82333;
+        padding: 6px 12px;
+        text-decoration: none;
+        border-radius: 4px;
+        display: inline-block;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-danger-custom:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+        color: white;
+        text-decoration: none;
+    }
+    
+    .action-buttons {
+        margin-bottom: 20px;
+    }
+    
+    .table {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .table th {
+        background-color: var(--primary-color, #306131);
+        color: white;
+        border: none;
+        padding: 12px;
+    }
+    
+    .table td {
+        padding: 12px;
+        border-bottom: 1px solid #dee2e6;
+    }
+</style>
 
-*@
 <div class="action-buttons">
-    <a asp-page="Create" class="btn btn-primary">Thêm nhạc mới</a>
+    <a asp-page="Create" class="btn-primary-custom">Thêm nhạc mới</a>
 </div>
 
 <table class="table">
     <thead>
         <tr>
-            
             <th>Tên bài hát</th>
-            <th>   </th>
+            <th>Trình phát</th>
             <th>Hành động</th>
         </tr>
     </thead>
@@ -23,25 +102,20 @@
         @foreach (var track in Model.MusicTrack)
         {
             <tr>
-                
                 <td>@track.SongName</td>
-                
                 <td>
                     <div class="col-sm-6">   
-                        
-                            <div class="mt-2">
-                                <audio controls style="max-width: 100%;">
-                                    <source src="src="~/@track.MusicFile" type="audio/mpeg" />
-                                                                        @* <source src="~/@track.MusicFile" type="audio/mpeg" /> *@
-                                    file .mp3 pls
-                                </audio>
-                            </div>
-                        
+                        <div class="mt-2">
+                            <audio controls style="max-width: 100%;">
+                                <source src="~/@track.MusicFile" type="audio/mpeg" />
+                                file .mp3 pls
+                            </audio>
+                        </div>
                     </div>
                 </td>
                 <td>
-                    <a asp-page="Edit" asp-route-id="@track.MusicID" class="btn btn-info">Sửa</a>
-                    <a asp-page="Delete" asp-route-id="@track.MusicID" class="btn btn-danger">Xóa</a>
+                    <a asp-page="Edit" asp-route-id="@track.MusicID" class="btn-info-custom">Sửa</a>
+                    <a asp-page="Delete" asp-route-id="@track.MusicID" class="btn-danger-custom">Xóa</a>
                 </td>
             </tr>
         }
