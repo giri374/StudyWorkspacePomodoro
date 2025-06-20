@@ -1,33 +1,28 @@
 ﻿<!DOCTYPE html>
-<html lang="vi">
-
+<html>
 <head>
     <meta charset="utf-8" />
-    <title>@ViewData["Title"] - Pomodoro</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .timer {
-            font-size: 3rem;
-            font-weight: bold;
-        }
-    </style>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/main.css" />
 </head>
 
-<body class="d-flex flex-column align-items-center justify-content-center min-vh-100">
+<body class="page-container" style="background-image: url('/img/BACKGROUND.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <header class="header">
+        <img src="~/img/POMODORO.png" alt="Logo" class="logo" />
+        <nav class="nav">
+            <a href="/Home">HOME</a>
+            <a href="/Management">MANAGEMENT</a>
+            <a href="/Workspace">WORKSPACE</a>
+        </nav>
+    </header>
 
-    <!-- Nội dung sẽ được chèn vào đây -->
-    @RenderBody()
-    @RenderSection("Scripts", required: false)
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <main class="main-content">
+        @RenderBody()
+    </main>
+
+    <footer class="footer">
+        © 2025 Pomodoro App
+    </footer>
+
 </body>
-
 </html>
