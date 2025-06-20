@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace StudyWorkspace.Pages.Mangament
+namespace POMODORO_TEST.Pages.Management
 {
-    public class ManagamentModel : PageModel
+    public class BackgroundModel : PageModel
     {
         public void OnGet()
         {

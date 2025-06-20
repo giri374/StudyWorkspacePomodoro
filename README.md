@@ -26,12 +26,13 @@ Layout: Footer/Side bar dẫn link tới 4 màn hình
 + Bắt đầu thời gian Pomodoro, nhận chuông báo sau 25 phút (màn hình pomodoro)
 + Cài đặt thời gian pomodoro (màn hình cài đặt pomodoro) (sẽ phát triển sau)
 ### Với màn hình MainScreen, người dùng có thể: 
+ Xem và sử dụng các không gian, nhạc có sẵn trong trang web.
+Giao diện
+(A) 2 nút chọn nhạc và chọn workspace, nhấn vào sẽ xổ ra thông tin: Sau khi lựa chọn nhạc, nhạc đang phát sẽ thay đổi (nhạc chỉ phát khi đang trong thời gian Pomodoro). Sau khi lựa chọn không gian, ảnh nền ở (B) sẽ thay đổi.
 
-+ Xem và sử dụng các không gian, nhạc có sẵn trong trang web (2 nút chọn nhạc  và chọn workspace, nhấn vào sẽ xổ ra thông tin)
-+ tên workspace và ảnh nền ở chính giữa màn hình (hiển thị workspace được chọn)
-+ Khu vực Pomodoro (hiển thị đè lên ảnh nền):
-  StartPomodoro: bắt đầu thời gian Pomodoro (nút Start), nhận chuông báo sau 25 phút, xem thời gian pomodoro còn lại (ô số 25:00 đếm ngược) 
-  ShortBreak: tương tự StartPomodoro, nhận chuông báo sau 5 phút (hiển thị thời gian nghỉ còn lại) (giao diện ShortBreak sẽ thay thế giao diện StartPomodoro)
+(B)tên workspace và ảnh nền ở chính giữa màn hình (hiển thị workspace được chọn).
+
+(C) Khu vực Pomodoro (hiển thị đè lên ảnh nền): StartPomodoro: bắt đầu thời gian Pomodoro (nút Start), nhận chuông báo sau 25 phút, xem thời gian pomodoro còn lại (ô số 25:00 đếm ngược); ShortBreak: tương tự StartPomodoro, nhận chuông báo sau 5 phút (hiển thị thời gian nghỉ còn lại) (giao diện ShortBreak sẽ thay thế giao diện StartPomodoro); LongBreak: tương tự ShortBreak, nhận chuông báo sau 15 phút."
 
  # Structure
 

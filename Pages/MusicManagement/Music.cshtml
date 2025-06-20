@@ -1,0 +1,18 @@
+@page
+@model POMODORO_TEST.Pages.Management.MusicModel
+@{
+    ViewData["Title"] = "Music";
+    Layout = "_Layout";
+}
+<link rel="stylesheet" href="~/css/music.css" />
+<h1>Music Manager</h1>
+<form class="upload-form">
+    <input type="file" />
+    <button>Upload</button>
+</form>
+<section class="music-list">
+    <div class="track">
+        <p>Wandering at Midnight</p>
+        <button>Play</button>
+    </div>
+</section>
