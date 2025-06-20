@@ -1,0 +1,58 @@
+@* @page
+@model POMODORO_TEST.Pages.Workspace.IndexModel
+@{
+    ViewData["Title"] = "Workspace";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/workspace.css" />
+<link rel="stylesheet" href="~/css/main.css" />
+
+<section class="workspace-container">
+    <!-- Hộp Pomodoro Timer -->
+    <div class="timer-box">
+        <div class="mode-switch">
+            <span class="mode" id="short">SHORT BREAK</span>
+            <span class="mode active" id="focus">FOCUS</span>
+            <span class="mode" id="long">LONG BREAK</span>
+        </div>
+
+        <div class="time-display">
+            <span id="hours">25</span> :
+            <span id="minutes">00</span> :
+            <span id="seconds">00</span>
+            <div class="unit-labels">
+                <span>HR</span>
+                <span>MIN</span>
+                <span>SEC</span>
+            </div>
+        </div>
+
+        <button class="start-btn">START</button>
+    </div>
+
+    <!-- 🔧 Khu vực mở rộng bên phải -->
+    <div class="side-panel">
+        <!-- 🔲 Hình nền hiện tại -->
+        <div class="preview-box">
+            <div class="image-preview" style="background-image: url('../img/background.png');"></div>
+            <p class="preview-label">Hình nền: Forest</p>
+        </div>
+
+        <!-- 🎨 Chọn hình nền khác -->
+        <div class="background-picker">
+            <label for="bg-select">Chọn hình nền:</label>
+            <select id="bg-select">
+                <option value="background.png">Forest</option>
+                <option value="beach.jpg">Beach</option>
+                <option value="mountain.jpg">Mountain</option>
+            </select>
+        </div>
+
+        <!-- 🎵 Bài hát hiện tại -->
+        <div class="preview-box">
+            <div class="song-icon">🎵</div>
+            <p class="preview-label">Bài hát: Lo-fi Chill</p>
+        </div>
+    </div>
+</section> *@
