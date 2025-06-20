@@ -8,7 +8,9 @@
    ```bash
    git clone https://github.com/giri374/StudyWorkspacePomodoro.git
 2. Tạo CSDL
- Mở giao diện SQL của bạn, chạy SQLServerDB.sql để tạo database
+ Mở giao diện SQL (VD: SSMS) của bạn, chạy SQLServerDB.sql trong new query để tạo database.
+- Chạy query này để có Server Name:SELECT @@SERVERNAME;
+- copy server name vửa rồi
 
 ## Cấu hình cơ sở dữ liệu (hạn chế tình trạng xung đột CSDL)
 1. Copy file `appsettings.example.json` thành `appsettings.json`
@@ -16,6 +18,14 @@
 3. KHÔNG commit `appsettings.json` vào Git (đã được ignore) 
 + VD Connectionstring của Đinh Linh: "Data Source=localhost\\sqlexpress;Initial Catalog=music;Integrated Security=True;Pooling=False;TrustServerCertificate=True"
 + VD2: "Server=myServerAddress\sqlexpress;Database=PomodoroDB;Integrated Security=True;Pooling=False;TrustServerCertificate=True"
++ thay myServerAddress\sqlexpress bằng server name của bạn
+  
+## Connect database
+làm theo hướng dẫn của thầy:
+Trong cửa sổ Server Explorer chọn Connect to Database:
+Nhập server name và chọn database:
+![image](https://github.com/user-attachments/assets/784c38f9-fad6-4687-b113-18ea4747f7ed)
+
 
 ## Miêu tả web:
 4 màn hình:pomodoro, quản lý workspace, quản lý nhạc, cài đặt pomodoro
