@@ -1,6 +1,12 @@
 # Pomodoro Web App
 
 Ứng dụng quản lý thời gian Pomodoro viết bằng ASP.NET Razor Pages.
+Thành viên:
+HOÀNG LINH CHI – 2255020010
+NGUYỄN ANH ĐỨC – 2255020017
+ĐINH THỊ KHÁNH LINH – 2255020033
+NGUYỄN GIA HIẾU – 2255020024
+TRẦN KHÁNH LINH – 2255020037
 
 ## ⚙️ Cài đặt
 
@@ -26,6 +32,13 @@ Trong cửa sổ Server Explorer chọn Connect to Database:
 Nhập server name và chọn database:
 ![image](https://github.com/user-attachments/assets/784c38f9-fad6-4687-b113-18ea4747f7ed)
 
+<img width="1897" height="927" alt="image" src="https://github.com/user-attachments/assets/816a432b-a519-4c13-b162-fa7a9cc135ed" />
+<img width="1920" height="922" alt="image" src="https://github.com/user-attachments/assets/95810901-cd02-402f-b687-bd4fc664c6b4" />
+<img width="1920" height="861" alt="image" src="https://github.com/user-attachments/assets/4fd5fb43-0bd6-45fc-867f-03632a139a14" />
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/6bdca38b-83f6-4c32-938e-ace17a9ea98a" />
+
+
+
 
 ## Miêu tả web:
 4 màn hình:pomodoro, quản lý workspace, quản lý nhạc, cài đặt pomodoro
@@ -36,14 +49,6 @@ Layout: Footer/Side bar dẫn link tới 4 màn hình
 + Xem và sử dụng các không gian, nhạc có sẵn trong trang web (màn hình pomodoro)
 + Bắt đầu thời gian Pomodoro, nhận chuông báo sau 25 phút (màn hình pomodoro)
 + Cài đặt thời gian pomodoro (màn hình cài đặt pomodoro) (sẽ phát triển sau)
-### Với màn hình MainScreen, người dùng có thể: 
- Xem và sử dụng các không gian, nhạc có sẵn trong trang web.
-Giao diện
-(A) 2 nút chọn nhạc và chọn workspace, nhấn vào sẽ xổ ra thông tin: Sau khi lựa chọn nhạc, nhạc đang phát sẽ thay đổi (nhạc chỉ phát khi đang trong thời gian Pomodoro). Sau khi lựa chọn không gian, ảnh nền ở (B) sẽ thay đổi.
-
-(B)tên workspace và ảnh nền ở chính giữa màn hình (hiển thị workspace được chọn).
-
-(C) Khu vực Pomodoro (hiển thị đè lên ảnh nền): StartPomodoro: bắt đầu thời gian Pomodoro (nút Start), nhận chuông báo sau 25 phút, xem thời gian pomodoro còn lại (ô số 25:00 đếm ngược); ShortBreak: tương tự StartPomodoro, nhận chuông báo sau 5 phút (hiển thị thời gian nghỉ còn lại) (giao diện ShortBreak sẽ thay thế giao diện StartPomodoro); LongBreak: tương tự ShortBreak, nhận chuông báo sau 15 phút."
 
  # Structure
 
