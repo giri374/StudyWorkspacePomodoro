@@ -8,6 +8,13 @@ Thành viên:
 - NGUYỄN GIA HIẾU – 2255020024
 - TRẦN KHÁNH LINH – 2255020037
 
+## Hình ảnh
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/6bdca38b-83f6-4c32-938e-ace17a9ea98a" />
+<img width="1897" height="927" alt="image" src="https://github.com/user-attachments/assets/816a432b-a519-4c13-b162-fa7a9cc135ed" />
+<img width="1920" height="922" alt="image" src="https://github.com/user-attachments/assets/95810901-cd02-402f-b687-bd4fc664c6b4" />
+<img width="1920" height="861" alt="image" src="https://github.com/user-attachments/assets/4fd5fb43-0bd6-45fc-867f-03632a139a14" />
+
+
 ## ⚙️ Cài đặt
 
 1. Clone repo:
@@ -27,17 +34,9 @@ Thành viên:
 + thay myServerAddress\sqlexpress bằng server name của bạn
   
 ## Connect database
-làm theo hướng dẫn của thầy:
 Trong cửa sổ Server Explorer chọn Connect to Database:
 Nhập server name và chọn database:
 ![image](https://github.com/user-attachments/assets/784c38f9-fad6-4687-b113-18ea4747f7ed)
-
-<img width="1897" height="927" alt="image" src="https://github.com/user-attachments/assets/816a432b-a519-4c13-b162-fa7a9cc135ed" />
-<img width="1920" height="922" alt="image" src="https://github.com/user-attachments/assets/95810901-cd02-402f-b687-bd4fc664c6b4" />
-<img width="1920" height="861" alt="image" src="https://github.com/user-attachments/assets/4fd5fb43-0bd6-45fc-867f-03632a139a14" />
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/6bdca38b-83f6-4c32-938e-ace17a9ea98a" />
-
-
 
 
 ## Miêu tả web:
